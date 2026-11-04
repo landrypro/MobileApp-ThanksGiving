@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#007EAF" />
+    <title>ThanksGiving Quote — Prototype</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="prototype-shell" aria-label="Prototype ThanksGiving Quote">
+      <section class="phone" aria-live="polite">
+        <div class="status-bar" aria-hidden="true"><span>9:41</span><span>● ● ● &nbsp;86%</span></div>
+
+        <section id="welcome" class="screen screen--active welcome-screen" aria-label="Bienvenue">
+          <div class="welcome-orbit" aria-hidden="true"><span></span></div>
+          <p class="eyebrow">BIENVENUE</p>
+          <h1>ThanksGiving<br />Quote</h1>
+          <p class="welcome-tagline">Rendre Grâce à DIEU chaque jour</p>
+          <div class="welcome-card">
+            <p>Trois rendez-vous chaque jour pour reconnaître la bonté de Dieu, cultiver la gratitude et partager l’espérance.</p>
+          </div>
+          <button class="button button--primary welcome-start" data-go="today">Commencer <span aria-hidden="true">→</span></button>
+          <p class="welcome-note">Français · 8 langues au lancement</p>
+        </section>
+
+        <section id="today" class="screen" aria-label="Aujourd'hui">
+          <header class="app-header">
+            <div class="brand-mark" aria-hidden="true"><span>+</span></div>
+            <div><strong>ThanksGiving Quote</strong><small>Rendre Grâce à DIEU chaque jour</small></div>
+            <button class="language-button" data-go="settings" aria-label="Ouvrir les réglages de langue">FR</button>
+          </header>
+          <div class="screen-scroll">
+            <div class="intro-row"><div><h2>Bonjour, Grâce</h2><p>Trois instants pour reconnaître la bonté de Dieu.</p></div></div>
+            <div class="date-row"><span>MERCREDI 28 OCTOBRE</span><b>JOUR 301</b></div>
+            <section class="daily-rhythm" aria-label="Les trois rendez-vous du jour">
+              <div class="daily-rhythm__heading"><strong>Vos 3 rendez-vous de grâce</strong><span id="next-reading">Prochain : soir · 18 h</span></div>
+              <div class="slot-tabs" role="tablist" aria-label="Choisir un rendez-vous">
+                <button class="slot-tab" data-slot="morning" role="tab" aria-selected="false"><span aria-hidden="true">☀</span><b>Matin</b><small>05 h</small></button>
+                <button class="slot-tab is-active" data-slot="midday" role="tab" aria-selected="true"><span aria-hidden="true">◐</span><b>Midi</b><small>12 h</small></button>
+                <button class="slot-tab" data-slot="evening" role="tab" aria-selected="false"><span aria-hidden="true">☾</span><b>Soir</b><small>18 h</small></button>
+              </div>
+            </section>
+            <article class="verse-card">
+              <div class="verse-card__circles" aria-hidden="true"></div>
+              <p id="slot-label" class="eyebrow">MIDI · VERSET 2 SUR 3</p>
+              <div class="gold-line" aria-hidden="true"></div>
+              <blockquote id="daily-quote">Entrez dans ses portes avec des louanges, dans ses parvis avec des cantiques&nbsp;! Célébrez-le, bénissez son nom&nbsp;!</blockquote>
+              <p id="daily-reference" class="reference">PSAUME 100:4</p>
+              <p id="slot-time" class="slot-time">Disponible depuis 12 h 00</p>
+              <p id="translation-label" class="translation-label">Louis Segond 1910 · aperçu</p>
+            </article>
+            <div class="verse-actions">
+              <button id="favorite-button" class="round-action" aria-pressed="false" aria-label="Ajouter ce verset aux favoris"><span aria-hidden="true">☆</span><small>À garder</small></button>
+              <button id="share-button" class="share-button">Partager le verset</button>
+            </div>
+            <section class="reflection">
+              <h3>À méditer</h3>
+              <div class="reflection-card"><p id="reflection-copy">Faites une pause pour reconnaître la bonté de DIEU au cœur de votre journée.</p><button id="gratitude-button">Remercier DIEU maintenant <span aria-hidden="true">→</span></button></div>
+            </section>
+          </div>
+        </section>
+
+        <section id="translations" class="screen" aria-label="Traductions bibliques">
+          <header class="plain-header"><button class="back-button" data-go="today" aria-label="Retour à l'accueil">‹</button><div><h2>Traductions</h2><p>Choisissez la version biblique à afficher.</p></div></header>
+          <div class="screen-scroll translations-content">
+            <span class="launch-badge">8 LANGUES AU LANCEMENT</span>
+            <p class="section-label">FRANÇAIS</p>
+            <div class="translation-list" role="radiogroup" aria-label="Versions françaises">
+              <button class="translation-option is-selected" data-translation="Louis Segond 1910" role="radio" aria-checked="true"><span><strong>Louis Segond 1910</strong><small>Français · texte du jour</small></span><em>ACTUELLE</em></button>
+              <button class="translation-option" data-translation="Bible Français courant" role="radio" aria-checked="false"><span><strong>Bible Français courant</strong><small>Français contemporain</small></span><em>Selon droits</em></button>
+              <button class="translation-option" data-translation="Bible du Semeur" role="radio" aria-checked="false"><span><strong>Bible du Semeur</strong><small>Français · lecture fluide</small></span><em>Selon droits</em></button>
+              <button class="translation-option" data-translation="Parole de Vie" role="radio" aria-checked="false"><span><strong>Parole de Vie</strong><small>Français facile à lire</small></span><em>Selon droits</em></button>
+            </div>
+            <p class="section-label">ENGLISH</p>
+            <div class="translation-list" role="radiogroup" aria-label="Versions anglaises">
+              <button class="translation-option" data-translation="King James Version" role="radio" aria-checked="false"><span><strong>King James Version</strong><small>English · classic wording</small></span><em>Selon droits</em></button>
+              <button class="translation-option" data-translation="Amplified Bible (AMP)" role="radio" aria-checked="false"><span><strong>Amplified Bible (AMP)</strong><small>English · expanded wording</small></span><em>Selon droits</em></button>
+            </div>
+            <aside class="rights-note">Les textes et les options de partage seront activés selon les autorisations obtenues pour chaque traduction.</aside>
+          </div>
+        </section>
+
+        <section id="history" class="screen" aria-label="Historique">
+          <header class="app-header">
+            <div class="brand-mark" aria-hidden="true"><span>+</span></div><div><strong>ThanksGiving Quote</strong><small>Rendre Grâce à DIEU chaque jour</small></div><button class="language-button" data-go="settings">FR</button>
+          </header>
+          <div class="screen-scroll">
+            <div class="intro-row"><div><h2>Votre parcours</h2><p>Un fil de reconnaissance, jour après jour.</p></div></div>
+            <section class="calendar-card"><div class="calendar-title"><h3>Octobre 2026</h3><span aria-hidden="true">‹ &nbsp;&nbsp;&nbsp;›</span></div><div class="weekdays"><span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span></div><div id="calendar-days" class="calendar-days" aria-label="Calendrier d'octobre 2026"></div></section>
+            <section class="recent-readings"><h3>Récemment médités</h3><button class="recent-item" data-go="today" data-slot="midday"><small>28 OCT. · MIDI · PSAUME 100:4</small><strong>Reconnaissance et louange</strong></button><button class="recent-item" data-go="today" data-slot="evening"><small>27 OCT. · SOIR · 1 THESSALONICIENS 5:18</small><strong>La gratitude en toute circonstance</strong></button></section>
+          </div>
+        </section>
+
+        <section id="favorites" class="screen" aria-label="Favoris">
+          <header class="app-header"><div class="brand-mark" aria-hidden="true"><span>+</span></div><div><strong>ThanksGiving Quote</strong><small>Rendre Grâce à DIEU chaque jour</small></div><button class="language-button" data-go="settings">FR</button></header>
+          <div class="screen-scroll"><div class="intro-row"><div><h2>Vos favoris</h2><p>Gardez les paroles qui vous accompagnent.</p></div></div><span id="favorite-count" class="launch-badge">12 VERSETS GARDÉS</span><div id="favorites-list" class="favorites-list"></div></div>
+        </section>
+
+        <section id="settings" class="screen" aria-label="Réglages">
+          <header class="plain-header settings-title"><div><h2>Réglages</h2><p>Personnalisez votre temps de méditation.</p></div></header>
+          <div class="screen-scroll settings-content">
+            <section class="settings-card"><div class="settings-line"><div><h3>Langue de l’application</h3><p id="current-language">Français · FR</p></div><button id="change-language">Modifier</button></div><div class="language-chips" role="radiogroup"><button class="chip is-selected" data-language="Français · FR" role="radio" aria-checked="true">FR</button><button class="chip" data-language="English · EN" role="radio" aria-checked="false">EN</button><button class="chip" data-language="Español · ES" role="radio" aria-checked="false">ES</button><button class="chip" data-language="Português (Brasil) · PT" role="radio" aria-checked="false">PT</button><button class="chip" data-language="Deutsch · DE" role="radio" aria-checked="false">DE</button><button class="chip" data-language="Italiano · IT" role="radio" aria-checked="false">IT</button><button class="chip" data-language="العربية · AR" role="radio" aria-checked="false">AR</button><button class="chip" data-language="Kiswahili · SW" role="radio" aria-checked="false">SW</button></div></section>
+            <section class="settings-card"><div class="settings-line"><div><h3>Rappels des 3 rendez-vous</h3><p>Activez chaque moment indépendamment.</p></div></div><div class="reminder-list"><div class="reminder-row"><span><b>Matin</b><small>08:00</small></span><button class="toggle is-on" data-reminder="morning" aria-pressed="true" aria-label="Désactiver le rappel du matin"><span></span></button></div><div class="reminder-row"><span><b>Midi</b><small>12:00</small></span><button class="toggle is-on" data-reminder="midday" aria-pressed="true" aria-label="Désactiver le rappel de midi"><span></span></button></div><div class="reminder-row"><span><b>Soir</b><small>20:00</small></span><button class="toggle" data-reminder="evening" aria-pressed="false" aria-label="Activer le rappel du soir"><span></span></button></div></div></section>
+            <section class="settings-card settings-link"><button data-go="translations"><span><h3>Version biblique préférée</h3><p id="settings-translation">Louis Segond 1910</p></span><b>Changer →</b></button></section>
+            <section class="settings-card"><div class="settings-line"><div><h3>Accès hors connexion</h3><p>Derniers versets enregistrés sur cet appareil.</p></div></div><strong class="settings-value">Activé</strong></section>
+            <section class="about-card"><strong>ThanksGiving Quote</strong><p>Rendre Grâce à DIEU chaque jour</p><small>Confidentialité · À propos</small></section>
+          </div>
+        </section>
+
+        <nav class="bottom-nav" hidden aria-label="Navigation principale">
+          <button data-go="today" class="nav-item is-active"><span aria-hidden="true">☀</span><small>Aujourd’hui</small></button>
+          <button data-go="history" class="nav-item"><span aria-hidden="true">H</span><small>Historique</small></button>
+          <button data-go="favorites" class="nav-item"><span aria-hidden="true">☆</span><small>Favoris</small></button>
+          <button data-go="settings" class="nav-item"><span aria-hidden="true">⚙</span><small>Réglages</small></button>
+        </nav>
+
+        <div id="modal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modal-title">
+          <div class="modal__sheet"><button class="modal-close" aria-label="Fermer">×</button><p class="eyebrow">MERCI À DIEU</p><h2 id="modal-title">Verset prêt à partager</h2><p id="modal-copy">Psaume 100:4 · Louis Segond 1910</p><button class="button button--primary modal-close">Continuer</button></div>
+        </div>
+        <div id="toast" class="toast" role="status" aria-live="polite"></div>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>

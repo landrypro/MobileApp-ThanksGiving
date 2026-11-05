@@ -1,0 +1,6 @@
+{
+  "APP_ENV": "development",
+  "CONTENT_API_BASE_URL": "http://10.0.2.2:54321/functions/v1",
+  "ENABLE_DEMO_CONTENT": true
+}
+

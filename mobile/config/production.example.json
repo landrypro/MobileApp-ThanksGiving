@@ -1,0 +1,6 @@
+{
+  "APP_ENV": "production",
+  "CONTENT_API_BASE_URL": "https://replace-me.invalid/functions/v1",
+  "ENABLE_DEMO_CONTENT": false
+}
+

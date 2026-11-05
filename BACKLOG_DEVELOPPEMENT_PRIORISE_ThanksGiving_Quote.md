@@ -75,6 +75,8 @@ Les mesures sont agrégées, minimisées et soumises au consentement lorsqu’il
 
 ## 5. Backlog P0 — M1 : pilote français utilisable
 
+> **Suivi au 4 novembre 2026 :** M1-03 est implémenté dans le dépôt avec trois environnements, validation HTTPS hors développement et séparation stricte des secrets serveur. M1-06 est implémenté dans Flutter et dans une migration PostgreSQL versionnée. La création et le raccordement des projets Supabase distants seront réalisés avec M1-07 ; aucun secret API.Bible n'est embarqué dans Flutter.
+
 ### EP-01 — Socle mobile, sécurité et accessibilité
 
 | ID | Histoire / travail | Critère d’acceptation | Dépendances |

@@ -4,6 +4,8 @@ set -Eeuo pipefail
 
 readonly SUPABASE_CLI_VERSION="${SUPABASE_CLI_VERSION:-3.0.0}"
 readonly DOCKER_SOURCE_FILE="/etc/apt/sources.list.d/docker.sources"
+readonly LEGACY_DOCKER_SOURCE_FILE="/etc/apt/sources.list.d/docker.list"
+readonly DISABLED_LEGACY_DOCKER_SOURCE_FILE="/etc/apt/sources.list.d/docker.list.disabled"
 
 fail() {
   printf 'ERREUR: %s\n' "$1" >&2
@@ -58,6 +60,15 @@ sudo chmod a+r /etc/apt/keyrings/docker.asc
 ubuntu_codename="${UBUNTU_CODENAME:-${VERSION_CODENAME:-}}"
 [[ -n "$ubuntu_codename" ]] || fail "Le nom de version Ubuntu est introuvable."
 docker_architecture="$(dpkg --print-architecture)"
+
+if [[ -f "$LEGACY_DOCKER_SOURCE_FILE" ]] &&
+   grep -Fq 'download.docker.com/linux/ubuntu' "$LEGACY_DOCKER_SOURCE_FILE"; then
+  if [[ -e "$DISABLED_LEGACY_DOCKER_SOURCE_FILE" ]]; then
+    fail "Le dépôt Docker historique et sa sauvegarde .disabled existent déjà. Examinez-les manuellement."
+  fi
+  printf 'Désactivation récupérable de l’ancien dépôt Docker %s...\n' "$LEGACY_DOCKER_SOURCE_FILE"
+  sudo mv "$LEGACY_DOCKER_SOURCE_FILE" "$DISABLED_LEGACY_DOCKER_SOURCE_FILE"
+fi
 
 printf '%s\n' \
   'Types: deb' \

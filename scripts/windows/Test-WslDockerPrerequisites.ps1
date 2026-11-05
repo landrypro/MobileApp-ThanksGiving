@@ -26,12 +26,20 @@ $isAdministrator = $windowsPrincipal.IsInRole(
     [Security.Principal.WindowsBuiltInRole]::Administrator
 )
 
-$wslCommand = Get-Command 'wsl.exe' -ErrorAction SilentlyContinue
-if ($null -eq $wslCommand) {
+$modernWslPath = Join-Path $env:ProgramFiles 'WSL\wsl.exe'
+if (Test-Path -LiteralPath $modernWslPath) {
+    $wslExecutable = $modernWslPath
+}
+else {
+    $wslCommand = Get-Command 'wsl.exe' -ErrorAction SilentlyContinue
+    $wslExecutable = if ($null -ne $wslCommand) { $wslCommand.Source } else { $null }
+}
+
+if ($null -eq $wslExecutable) {
     Add-Check -Name 'Commande WSL' -Status 'BLOQUANT' -Detail 'wsl.exe est introuvable.'
 }
 else {
-    Add-Check -Name 'Commande WSL' -Status 'OK' -Detail $wslCommand.Source
+    Add-Check -Name 'Commande WSL' -Status 'OK' -Detail $wslExecutable
 }
 
 $wslService = Get-Service -Name 'WslService' -ErrorAction SilentlyContinue
@@ -65,9 +73,9 @@ else {
     Add-Check -Name 'Fonctionnalités Windows' -Status 'ATTENTION' -Detail 'Relancer en administrateur pour contrôler les fonctionnalités optionnelles.'
 }
 
-if ($null -ne $wslCommand -and $null -ne $wslService -and $wslService.StartType -ne 'Disabled') {
+if ($null -ne $wslExecutable -and $null -ne $wslService -and $wslService.StartType -ne 'Disabled') {
     try {
-        $versionOutput = (& wsl.exe --version 2>&1 | Out-String) -replace "`0", ''
+        $versionOutput = (& $wslExecutable --version 2>&1 | Out-String) -replace "`0", ''
         $versionOutput = $versionOutput.Trim()
         if ($LASTEXITCODE -eq 0) {
             Add-Check -Name 'Version WSL' -Status 'OK' -Detail $versionOutput
@@ -81,7 +89,7 @@ if ($null -ne $wslCommand -and $null -ne $wslService -and $wslService.StartType 
     }
 
     try {
-        $distributionOutput = (& wsl.exe --list --verbose 2>&1 | Out-String) -replace "`0", ''
+        $distributionOutput = (& $wslExecutable --list --verbose 2>&1 | Out-String) -replace "`0", ''
         $distributionOutput = $distributionOutput.Trim()
         if ($LASTEXITCODE -eq 0 -and $distributionOutput) {
             Add-Check -Name 'Distribution Linux' -Status 'OK' -Detail $distributionOutput

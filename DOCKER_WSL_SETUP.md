@@ -70,11 +70,12 @@ bash scripts/wsl/install-docker-supabase.sh
 Le script :
 
 1. refuse de supprimer automatiquement d'éventuels paquets Docker conflictuels ;
-2. installe Docker depuis le dépôt APT officiel ;
-3. active le service Docker avec systemd ;
-4. ajoute l'utilisateur Linux au groupe `docker` ;
-5. exécute l'image officielle `hello-world` ;
-6. installe Supabase CLI `3.0.0`, version épinglée, avec l'installateur officiel et son contrôle de somme.
+2. désactive de manière récupérable un ancien `docker.list` qui dupliquerait le dépôt officiel ;
+3. installe Docker depuis le dépôt APT officiel ;
+4. active le service Docker avec systemd ;
+5. ajoute l'utilisateur Linux au groupe `docker` ;
+6. exécute l'image officielle `hello-world` ;
+7. installe Supabase CLI `3.0.0`, version épinglée, avec l'installateur officiel et son contrôle de somme.
 
 L'appartenance au groupe `docker` donne des privilèges équivalents à root. Fermer puis rouvrir Ubuntu après l'installation, ou utiliser temporairement :
 

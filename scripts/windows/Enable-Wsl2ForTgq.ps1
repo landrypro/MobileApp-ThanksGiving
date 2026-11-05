@@ -9,6 +9,15 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
+$modernWslPath = Join-Path $env:ProgramFiles 'WSL\wsl.exe'
+if (Test-Path -LiteralPath $modernWslPath) {
+    $wslExecutable = $modernWslPath
+}
+else {
+    $wslCommand = Get-Command 'wsl.exe' -ErrorAction Stop
+    $wslExecutable = $wslCommand.Source
+}
+
 Write-Host 'Activation des composants Windows nécessaires à WSL 2...' -ForegroundColor Cyan
 
 $restartNeeded = $false
@@ -43,23 +52,23 @@ if ($null -ne $wslService -and $wslService.Status -ne 'Running') {
 }
 
 Write-Host 'Mise à jour de WSL et sélection de WSL 2 par défaut...' -ForegroundColor Cyan
-& wsl.exe --update
+& $wslExecutable --update
 if ($LASTEXITCODE -ne 0) {
     throw 'La mise à jour de WSL a échoué.'
 }
 
-& wsl.exe --set-default-version 2
+& $wslExecutable --set-default-version 2
 if ($LASTEXITCODE -ne 0) {
     throw 'Impossible de définir WSL 2 comme version par défaut.'
 }
 
-$installedDistributions = @(& wsl.exe --list --quiet 2>$null) |
+$installedDistributions = @(& $wslExecutable --list --quiet 2>$null) |
     ForEach-Object { $_.Trim() } |
     Where-Object { $_ }
 
 if ($installedDistributions -notcontains $Distribution) {
     Write-Host "Installation de la distribution $Distribution..." -ForegroundColor Cyan
-    & wsl.exe --install --distribution $Distribution
+    & $wslExecutable --install --distribution $Distribution
     if ($LASTEXITCODE -ne 0) {
         throw "L'installation de $Distribution a échoué."
     }
@@ -68,7 +77,7 @@ else {
     Write-Host "La distribution $Distribution est déjà installée." -ForegroundColor Green
 }
 
-& wsl.exe --set-version $Distribution 2
+& $wslExecutable --set-version $Distribution 2
 if ($LASTEXITCODE -ne 0) {
     throw "Impossible de placer $Distribution en WSL 2."
 }

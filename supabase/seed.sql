@@ -1,0 +1,2 @@
+-- Aucun jeu de données éditorial n'est injecté automatiquement.
+-- Les contenus bibliques seront importés par la chaîne éditoriale sécurisée.

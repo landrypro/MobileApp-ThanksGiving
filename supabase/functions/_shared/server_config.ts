@@ -4,6 +4,7 @@ export interface ServerConfig {
   readonly environment: ServerEnvironment;
   readonly apiBibleEndpoint: URL;
   readonly apiBibleApiKey: string;
+  readonly apiBibleAllowedBibleIds: readonly string[];
 }
 
 /**
@@ -24,11 +25,15 @@ export function loadServerConfig(
     variables.API_BIBLE_API_KEY,
     "API_BIBLE_API_KEY",
   );
+  const apiBibleAllowedBibleIds = readBibleIds(
+    variables.API_BIBLE_ALLOWED_BIBLE_IDS,
+  );
 
   return Object.freeze({
     environment,
     apiBibleEndpoint,
     apiBibleApiKey,
+    apiBibleAllowedBibleIds,
   });
 }
 
@@ -62,3 +67,24 @@ function requireSecret(value: string | undefined, name: string): string {
   return value.trim();
 }
 
+function readBibleIds(value: string | undefined): readonly string[] {
+  const bibleIds = (value ?? "")
+    .split(",")
+    .map((item) => item.trim())
+    .filter((item) => item.length > 0);
+
+  if (bibleIds.length === 0) {
+    throw new Error(
+      "API_BIBLE_ALLOWED_BIBLE_IDS doit contenir au moins un identifiant autorisé.",
+    );
+  }
+
+  const bibleIdPattern = /^[A-Za-z0-9]{16}-[0-9]{2}$/;
+  if (bibleIds.some((bibleId) => !bibleIdPattern.test(bibleId))) {
+    throw new Error(
+      "API_BIBLE_ALLOWED_BIBLE_IDS contient un identifiant invalide.",
+    );
+  }
+
+  return Object.freeze([...new Set(bibleIds)]);
+}

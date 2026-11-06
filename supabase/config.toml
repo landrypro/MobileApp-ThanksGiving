@@ -365,6 +365,14 @@ inspector_port = 8083
 # The Deno major version to use.
 deno_version = 2
 
+[functions.daily-verses]
+# Endpoint public en lecture seule. L'autorisation métier reste appliquée dans la fonction.
+verify_jwt = false
+
+[functions.api-bible-passage]
+# @supabase/server valide lui-même le JWT utilisateur ou la clé serveur.
+verify_jwt = false
+
 # [edge_runtime.secrets]
 # secret_key = "env(SECRET_VALUE)"
 

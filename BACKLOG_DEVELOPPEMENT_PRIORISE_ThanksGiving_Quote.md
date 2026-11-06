@@ -77,6 +77,14 @@ Les mesures sont agrégées, minimisées et soumises au consentement lorsqu’il
 
 > **Suivi au 4 novembre 2026 :** M1-03 est implémenté dans le dépôt avec trois environnements, validation HTTPS hors développement et séparation stricte des secrets serveur. M1-06 est implémenté dans Flutter et dans une migration PostgreSQL versionnée. La création et le raccordement des projets Supabase distants seront réalisés avec M1-07 ; aucun secret API.Bible n'est embarqué dans Flutter.
 
+> **Suivi au 6 novembre 2026 :** M1-07 est implémenté et validé localement avec
+> une Edge Function publique pour le jour et l'historique, et un connecteur
+> API.Bible privé limité aux rôles éditoriaux ou aux appels serveur. Les tests
+> empêchent l'accès aux brouillons, aux dates futures et aux traductions non
+> autorisées. Le test réel auprès d'API.Bible et le déploiement distant restent
+> conditionnés à la configuration hors Git d'une nouvelle clé et du Bible ID
+> LSG 1910 exact du compte Gaius Consulting.
+
 ### EP-01 — Socle mobile, sécurité et accessibilité
 
 | ID | Histoire / travail | Critère d’acceptation | Dépendances |

@@ -1,17 +1,41 @@
 # Backend Supabase — ThanksGiving Quote
 
-Ce dossier contient le socle serveur de M1-03 et le modèle de données M1-06.
+Ce dossier contient le socle serveur de M1-03, le modèle de données M1-06 et
+l'API sécurisée M1-07.
 
 ## Séparation des responsabilités
 
 - Flutter reçoit seulement `CONTENT_API_BASE_URL`, une URL publique.
 - `API_BIBLE_API_KEY` existe uniquement dans les secrets des Edge Functions.
 - la table `public.daily_verse_contents` a RLS activé et ne donne aucun droit aux rôles `anon` et `authenticated` ; le mobile n'y accède jamais directement ;
-- l'API publique de lecture sera ajoutée dans M1-07 et ne renverra que les révisions autorisées.
+- l'API publique de lecture M1-07 ne renvoie que les révisions `published`
+  dont la date de publication est atteinte et dont le couple langue/traduction
+  figure dans `CONTENT_ALLOWED_TRANSLATIONS` ;
+- le connecteur API.Bible est réservé aux identités éditoriales ou aux appels
+  serveur-à-serveur ; il ne choisit jamais un verset et ne publie rien.
+
+## API M1-07
+
+- `GET /functions/v1/daily-verses` : lecture publique d'une date ou d'une plage
+  historique de 30 jours maximum ;
+- `POST /functions/v1/api-bible-passage` : récupération privée d'un passage
+  explicitement choisi, limitée aux Bible IDs configurés côté serveur.
+
+Le contrat détaillé, les paramètres et les codes d'erreur sont documentés dans
+[`API_M1_07.md`](API_M1_07.md).
 
 ## Secrets locaux
 
-Copier `functions/.env.example` vers un fichier local ignoré, puis renseigner la nouvelle clé API.Bible hors du dépôt. Ne jamais ajouter la valeur réelle dans un fichier suivi par Git, une commande de compilation Flutter ou un journal.
+Utiliser le script interactif suivant depuis WSL. La saisie de la clé est
+masquée et le fichier produit est ignoré par Git :
+
+```bash
+bash scripts/wsl/configure-supabase-function-secrets.sh
+```
+
+Le script demande une nouvelle clé API.Bible et le Bible ID LSG 1910 relevé
+dans le compte Gaius Consulting. Ne jamais ajouter la valeur réelle dans un
+fichier suivi par Git, une commande de compilation Flutter ou un journal.
 
 ## Environnements hébergés
 
@@ -23,6 +47,15 @@ La migration a été créée par la CLI avec `supabase migration new create_dail
 
 Le moteur de conteneurs retenu pour ce projet est **Docker Engine dans WSL 2**. Les commandes Supabase locales devront être exécutées depuis la distribution WSL, avec une version récente de la CLI compatible avec la section `local_smtp` de `config.toml`.
 
-Quand WSL et Docker seront actifs, le contrôle restant sera : démarrer Supabase, réinitialiser la base avec les migrations, puis vérifier les contraintes et RLS de `daily_verse_contents`.
+La recette locale M1-07 s'exécute avec :
+
+```bash
+bash scripts/wsl/verify-m1-07.sh
+```
+
+Elle injecte des données techniques temporaires, prouve que seuls les trois
+contenus publiés sont renvoyés, refuse une date future et vérifie que le
+connecteur API.Bible répond `401` sans identité. Les fixtures sont supprimées
+automatiquement.
 
 La procédure et les scripts prêts à exécuter sont décrits dans [`DOCKER_WSL_SETUP.md`](../DOCKER_WSL_SETUP.md).

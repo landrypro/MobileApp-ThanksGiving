@@ -27,9 +27,9 @@ insert into public.daily_verse_contents (
   reference, verse_text, reflection, action, attribution, editorial_status,
   version, published_at
 ) values
-  ('10000000-0000-4000-8000-000000000001', date '2000-01-01', 'morning', 'fr', 'lsg1910', 'Louis Segond 1910', 'Test 1:1', 'Texte technique matin.', 'Réflexion technique.', 'Action technique.', 'Attribution technique.', 'published', 1, now()),
-  ('10000000-0000-4000-8000-000000000002', date '2000-01-01', 'midday', 'fr', 'lsg1910', 'Louis Segond 1910', 'Test 1:2', 'Texte technique midi.', 'Réflexion technique.', 'Action technique.', 'Attribution technique.', 'published', 1, now()),
-  ('10000000-0000-4000-8000-000000000003', date '2000-01-01', 'evening', 'fr', 'lsg1910', 'Louis Segond 1910', 'Test 1:3', 'Texte technique soir.', 'Réflexion technique.', 'Action technique.', 'Attribution technique.', 'published', 1, now()),
+  ('10000000-0000-4000-8000-000000000001', date '2000-01-01', 'morning', 'fr', 'jnd', 'Bible J.N. Darby', 'Test 1:1', 'Texte technique matin.', 'Réflexion technique.', 'Action technique.', 'Attribution technique.', 'published', 1, now()),
+  ('10000000-0000-4000-8000-000000000002', date '2000-01-01', 'midday', 'fr', 'jnd', 'Bible J.N. Darby', 'Test 1:2', 'Texte technique midi.', 'Réflexion technique.', 'Action technique.', 'Attribution technique.', 'published', 1, now()),
+  ('10000000-0000-4000-8000-000000000003', date '2000-01-01', 'evening', 'fr', 'jnd', 'Bible J.N. Darby', 'Test 1:3', 'Texte technique soir.', 'Réflexion technique.', 'Action technique.', 'Attribution technique.', 'published', 1, now()),
   ('10000000-0000-4000-8000-000000000004', date '2000-01-01', 'morning', 'fr', 'testdraft', 'Test Draft', 'Test 1:4', 'Brouillon invisible.', 'Réflexion technique.', 'Action technique.', 'Attribution technique.', 'draft', 1, null);
 SQL
 
@@ -43,7 +43,7 @@ fi
 response_file="$(mktemp)"
 trap 'rm -f "${response_file}"; cleanup' EXIT
 http_status="$(curl --silent --show-error --output "${response_file}" --write-out '%{http_code}' \
-  'http://127.0.0.1:54321/functions/v1/daily-verses?date=2000-01-01&language=fr&translation=lsg1910&timezone=UTC')"
+  'http://127.0.0.1:54321/functions/v1/daily-verses?date=2000-01-01&language=fr&translation=jnd&timezone=UTC')"
 if [[ "${http_status}" != "200" ]]; then
   printf 'daily-verses a répondu HTTP %s.\n' "${http_status}" >&2
   exit 1
@@ -59,7 +59,7 @@ with open(sys.argv[1], encoding="utf-8") as response:
 assert payload["meta"]["count"] == 3, payload
 assert [item["slot"] for item in payload["data"]] == ["morning", "midday", "evening"], payload
 assert all(item["status"] == "published" for item in payload["data"]), payload
-assert all(item["translation_code"] == "lsg1910" for item in payload["data"]), payload
+assert all(item["translation_code"] == "jnd" for item in payload["data"]), payload
 assert not any("Brouillon invisible" in item["text"] for item in payload["data"]), payload
 PY
 

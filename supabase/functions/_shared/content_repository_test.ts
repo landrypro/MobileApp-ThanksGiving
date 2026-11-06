@@ -5,7 +5,7 @@ const query: DailyVerseReadQuery = {
   from: "2026-11-05",
   to: "2026-11-05",
   languageCode: "fr",
-  translationCode: "lsg1910",
+  translationCode: "jnd",
   timeZone: "UTC",
   mode: "day",
 };

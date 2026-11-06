@@ -67,12 +67,12 @@ class DemoDailyVerseRepository implements DailyVerseRepository {
     required String action,
   }) {
     return DailyVerse(
-      id: 'demo-${date.iso8601}-${slot.wireName}-fr-lsg1910-v1',
+      id: 'demo-${date.iso8601}-${slot.wireName}-fr-jnd-v1',
       date: date,
       slot: slot,
       languageCode: 'fr',
-      translationCode: 'lsg1910',
-      translationName: 'Louis Segond 1910',
+      translationCode: 'jnd',
+      translationName: 'Bible J.N. Darby',
       reference: reference,
       text: text,
       reflection: reflection,

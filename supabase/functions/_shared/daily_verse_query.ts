@@ -115,7 +115,7 @@ export function parseDailyVerseReadQuery(
 }
 
 export function readAllowedTranslations(
-  rawValue = Deno.env.get("CONTENT_ALLOWED_TRANSLATIONS") ?? "fr:lsg1910",
+  rawValue = Deno.env.get("CONTENT_ALLOWED_TRANSLATIONS") ?? "fr:jnd",
 ): ReadonlySet<string> {
   const entries = rawValue
     .split(",")

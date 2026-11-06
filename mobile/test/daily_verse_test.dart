@@ -11,13 +11,13 @@ void main() {
       expect(decoded.date, CalendarDate(2026, 11, 4));
       expect(decoded.slot, DailySlot.midday);
       expect(decoded.languageCode, 'fr');
-      expect(decoded.translationCode, 'lsg1910');
+      expect(decoded.translationCode, 'jnd');
       expect(decoded.status, EditorialStatus.approved);
       expect(decoded.version, 2);
       expect(decoded.action, 'Remercier DIEU pour une grâce précise.');
       expect(
         decoded.revisionKey,
-        '2026-11-04|midday|fr|lsg1910|v2',
+        '2026-11-04|midday|fr|jnd|v2',
       );
     });
 
@@ -44,14 +44,14 @@ DailyVerse _verse({
     date: CalendarDate(2026, 11, 4),
     slot: DailySlot.midday,
     languageCode: languageCode,
-    translationCode: 'lsg1910',
-    translationName: 'Louis Segond 1910',
+    translationCode: 'jnd',
+    translationName: 'Bible J.N. Darby',
     reference: 'Psaume 100:4',
     text: 'Texte biblique validé.',
     reflection: 'Reconnaître la bonté de DIEU.',
     action: 'Remercier DIEU pour une grâce précise.',
     prayer: null,
-    attribution: 'Louis Segond 1910',
+    attribution: 'Bible J.N. Darby',
     status: EditorialStatus.approved,
     version: version,
     sourceBibleId: 'source-bible-id',

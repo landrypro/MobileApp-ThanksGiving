@@ -22,7 +22,7 @@
 ### Requête
 
 ```http
-GET /functions/v1/daily-verses?date=2026-11-06&language=fr&translation=lsg1910&timezone=America/New_York
+GET /functions/v1/daily-verses?date=2026-11-06&language=fr&translation=jnd&timezone=America/New_York
 ```
 
 Paramètres :
@@ -32,7 +32,7 @@ Paramètres :
 | `date` | Date unique au format `AAAA-MM-JJ`. Incompatible avec `from/to`. Par défaut : date civile du fuseau demandé. |
 | `from`, `to` | Plage inclusive obligatoire par paire, limitée à 30 jours. |
 | `language` | Code de langue ; `fr` par défaut pour le pilote. |
-| `translation` | Code autorisé ; `lsg1910` par défaut pour le pilote. |
+| `translation` | Code autorisé ; `jnd` par défaut pour le pilote. |
 | `timezone` | Fuseau IANA utilisé pour déterminer la date civile ; `UTC` par défaut. |
 
 L'API refuse les dates futures selon le fuseau demandé. Elle sélectionne
@@ -50,8 +50,8 @@ l'état « contenu absent » sans substituer silencieusement un autre jour.
       "date": "2026-11-06",
       "slot": "morning",
       "language_code": "fr",
-      "translation_code": "lsg1910",
-      "translation_name": "Louis Segond 1910",
+      "translation_code": "jnd",
+      "translation_name": "Bible J.N. Darby",
       "reference": "Référence validée",
       "text": "Texte biblique validé",
       "reflection": "Méditation approuvée",
@@ -70,7 +70,7 @@ l'état « contenu absent » sans substituer silencieusement un autre jour.
     "from": "2026-11-06",
     "to": "2026-11-06",
     "language_code": "fr",
-    "translation_code": "lsg1910",
+    "translation_code": "jnd",
     "timezone": "America/New_York",
     "mode": "day",
     "count": 1

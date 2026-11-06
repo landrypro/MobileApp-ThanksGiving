@@ -1,7 +1,7 @@
 const state = {
   favorites: { morning: false, midday: false, evening: false },
   favoriteCount: 12,
-  translation: "Louis Segond 1910",
+  translation: "Bible J.N. Darby",
   language: "Français · FR",
   reminders: { morning: true, midday: true, evening: false },
   slot: "midday",
@@ -13,7 +13,7 @@ const dailyContent = {
     label: "MATIN · VERSET 1 SUR 3",
     available: "Disponible depuis 05 h 00",
     reference: "PSAUME 92:2",
-    verse: "Il est beau de louer l’Éternel, Et de célébrer ton nom, ô Très Haut !",
+    verse: "Le verset du matin sera affiché après validation de l’édition biblique et de ses droits.",
     reflection: "Commencez cette journée en nommant une grâce déjà présente dans votre vie.",
     action: "Commencer avec gratitude",
   },
@@ -22,7 +22,7 @@ const dailyContent = {
     label: "MIDI · VERSET 2 SUR 3",
     available: "Disponible depuis 12 h 00",
     reference: "PSAUME 100:4",
-    verse: "Entrez dans ses portes avec des louanges, dans ses parvis avec des cantiques ! Célébrez-le, bénissez son nom !",
+    verse: "Le verset de midi sera affiché après validation de l’édition biblique et de ses droits.",
     reflection: "Faites une pause pour reconnaître la bonté de DIEU au cœur de votre journée.",
     action: "Remercier DIEU maintenant",
   },
@@ -31,15 +31,15 @@ const dailyContent = {
     label: "SOIR · VERSET 3 SUR 3",
     available: "Disponible depuis 18 h 00",
     reference: "1 THESSALONICIENS 5:18",
-    verse: "Rendez grâces en toutes choses, car c’est à votre égard la volonté de Dieu en Jésus-Christ.",
+    verse: "Le verset du soir sera affiché après validation de l’édition biblique et de ses droits.",
     reflection: "Relisez votre journée avec DIEU et déposez-lui ce qui a été vécu, avec reconnaissance.",
     action: "Terminer avec gratitude",
   },
 };
 
 const fixedFavorites = [
-  ["1 THESSALONICIENS 5:18", "Rendez grâces en toutes choses, car c’est à votre égard la volonté de Dieu.", "Louis Segond 1910 · Soir · 27 oct."],
-  ["PSAUME 107:1", "Louez l’Éternel, car il est bon, car sa miséricorde dure à toujours !", "Louis Segond 1910 · Matin · 24 oct."],
+  ["1 THESSALONICIENS 5:18", "Texte biblique à synchroniser après validation des droits.", "Bible J.N. Darby · Soir · 27 oct."],
+  ["PSAUME 107:1", "Texte biblique à synchroniser après validation des droits.", "Bible J.N. Darby · Matin · 24 oct."],
 ];
 
 const $ = (selector) => document.querySelector(selector);
@@ -72,7 +72,7 @@ function renderCalendar() {
 }
 
 function displayedVerse(content) {
-  if (state.translation === "Louis Segond 1910") return content.verse;
+  if (state.translation === "Bible J.N. Darby") return content.verse;
   return `Le texte exact de ${state.translation} sera affiché après validation de ses droits d’usage.`;
 }
 
@@ -96,7 +96,7 @@ function renderToday() {
 }
 
 function favoriteCard(reference, verse, meta) {
-  return `<article class="favorite-card"><small>${reference}</small><blockquote>${verse}</blockquote><div class="favorite-card__footer"><span>${meta}</span><button data-share="${reference}">Partager →</button></div></article>`;
+  return `<article class="favorite-card"><small>${reference}</small><blockquote>${verse}</blockquote><div class="favorite-card__footer"><span>${meta}</span><button data-share="${reference}">Aperçu →</button></div></article>`;
 }
 
 function renderFavorites() {
@@ -136,7 +136,7 @@ function setTranslation(name) {
 function openShare(reference) {
   const content = dailyContent[state.slot];
   const verseReference = reference || content.reference;
-  $("#modal-copy").textContent = `${verseReference} · ${state.translation}`;
+  $("#modal-copy").textContent = `${verseReference} · ${state.translation} · partage soumis aux droits`;
   $("#modal").hidden = false;
 }
 
@@ -165,6 +165,10 @@ function initializeInteractions() {
     toast(`${dailyContent[state.slot].name} sélectionné`);
   }));
   $$(".translation-option").forEach((button) => button.addEventListener("click", () => {
+    if (button.dataset.translation !== "Bible J.N. Darby") {
+      toast("Cette traduction sera disponible après validation des droits.");
+      return;
+    }
     setTranslation(button.dataset.translation);
     toast(`${button.dataset.translation} sélectionnée`);
     window.setTimeout(() => showScreen("today"), 350);

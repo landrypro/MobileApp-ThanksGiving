@@ -33,9 +33,12 @@ masquée et le fichier produit est ignoré par Git :
 bash scripts/wsl/configure-supabase-function-secrets.sh
 ```
 
-Le script demande une nouvelle clé API.Bible et le Bible ID LSG 1910 relevé
-dans le compte Gaius Consulting. Ne jamais ajouter la valeur réelle dans un
-fichier suivi par Git, une commande de compilation Flutter ou un journal.
+Le script demande une nouvelle clé API.Bible, consulte les éditions
+accessibles à ce compte et vérifie l'édition française Bible J.N. Darby
+`a93a92589195411f-01`. Si elle est absente, il affiche les éditions françaises
+accessibles et n'enregistre aucun secret. L'accès à une édition ne valide pas
+automatiquement ses droits de cache ou de partage. Ne jamais ajouter la clé dans un fichier suivi par
+Git, une commande de compilation Flutter ou un journal.
 
 ## Environnements hébergés
 

@@ -373,6 +373,10 @@ verify_jwt = false
 # @supabase/server valide lui-même le JWT utilisateur ou la clé serveur.
 verify_jwt = false
 
+[functions.editorial-contents]
+# @supabase/server valide le JWT utilisateur avant toute opération éditoriale.
+verify_jwt = false
+
 # [edge_runtime.secrets]
 # secret_key = "env(SECRET_VALUE)"
 

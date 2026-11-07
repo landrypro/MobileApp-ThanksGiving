@@ -5,6 +5,12 @@ script_directory="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 project_directory="$(cd -- "${script_directory}/../.." && pwd)"
 secret_file="${project_directory}/supabase/functions/.env"
 
+read -r -p "Titulaire du compte API.Bible et accord applicables au projet confirmés ? (oui/non) : " license_confirmed
+if [[ "${license_confirmed,,}" != "oui" ]]; then
+  printf "Configuration interrompue : clarifier le titulaire du compte et l'accord applicable avant d'utiliser la clé.\n" >&2
+  exit 1
+fi
+
 read -r -s -p "Nouvelle clé API.Bible (entrée masquée) : " api_bible_key
 printf '\n'
 if [[ ! "${api_bible_key}" =~ ^[A-Za-z0-9_-]+$ ]]; then
